@@ -8,3 +8,7 @@ minio:
   accessKey: admin
   secretKey: admin
   bucketName: defaultBucket
+server:
+  servlet:
+    context-path: /boot
+  port: 8080
