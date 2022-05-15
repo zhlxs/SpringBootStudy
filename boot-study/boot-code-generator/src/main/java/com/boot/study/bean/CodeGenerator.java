@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.util.Scanner;
 
@@ -38,8 +39,8 @@ public class CodeGenerator {
         // 配置策略
         // 1、全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
+//        String projectPath = System.getProperty("user.dir");
+        gc.setOutputDir("d:\\" + "/code-gen");
         gc.setAuthor("胡山林");//设置作者
         gc.setOpen(false);
         gc.setFileOverride(false); // 是否覆盖
@@ -47,10 +48,11 @@ public class CodeGenerator {
         gc.setIdType(IdType.ID_WORKER);
         gc.setDateType(DateType.ONLY_DATE);
         gc.setSwagger2(true);
+        gc.setOpen(true);
         mpg.setGlobalConfig(gc);
         //2、设置数据源
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/boot?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://192.168.0.105:3306/boot?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");//账号
         dsc.setPassword("root");//密码
@@ -61,7 +63,7 @@ public class CodeGenerator {
         //  pc.setModuleName("jiaxiao");//模块名称
         pc.setParent("com.boot.study");
         pc.setEntity("entity");
-        pc.setMapper("code");
+        pc.setMapper("dao");
         pc.setService("service");
         pc.setController("web");
         mpg.setPackageInfo(pc);
@@ -71,6 +73,7 @@ public class CodeGenerator {
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
+        strategy.setSkipView(false);
         // 自动lombok，是否使用lombok完成Entity实体标注Getting Setting ToString 方法；
         // strategy.setLogicDeleteFieldName("deleted");
         // 自动填充配置
@@ -85,6 +88,7 @@ public class CodeGenerator {
         strategy.setVersionFieldName("version");
         strategy.setRestControllerStyle(true);//驼峰命名
         strategy.setControllerMappingHyphenStyle(true); //localhost:8080/hello_id_2
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.setStrategy(strategy);
         mpg.execute(); //执行
     }
