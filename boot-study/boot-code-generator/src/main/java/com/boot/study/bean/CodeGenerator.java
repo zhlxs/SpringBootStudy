@@ -61,7 +61,7 @@ public class CodeGenerator {
         //  pc.setModuleName("jiaxiao");//模块名称
         pc.setParent("com.boot.study");
         pc.setEntity("entity");
-        pc.setMapper("mapper");
+        pc.setMapper("code");
         pc.setService("service");
         pc.setController("web");
         mpg.setPackageInfo(pc);
