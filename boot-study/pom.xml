@@ -11,6 +11,8 @@
         <module>boot-file</module>
         <module>boot-common</module>
         <module>boot-start</module>
+        <module>boot-auth</module>
+        <module>boot-code-generator</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -33,6 +35,12 @@
                 <artifactId>lombok</artifactId>
                 <version>1.16.10</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.29</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

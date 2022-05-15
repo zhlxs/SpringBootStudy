@@ -7,9 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="boot-start" />
-        <module name="boot-common" />
+        <module name="boot-auth" />
         <module name="boot-file" />
+        <module name="boot-start" />
+        <module name="boot-code-generator" />
+        <module name="boot-common" />
       </profile>
     </annotationProcessing>
   </component>
