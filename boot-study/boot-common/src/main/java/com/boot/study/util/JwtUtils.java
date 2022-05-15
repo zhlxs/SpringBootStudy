@@ -21,9 +21,9 @@ public class JwtUtils {
     public static final String APP_SECRET = "zjKkye4PN59B2wriTjtVCo3BOYoD1B";
 
     /**
-     * 根据id和昵称获取token
+     * 根据id和用户名获取token
      */
-    public static String getJwtToken(String id, String nickname) {
+    public static String getJwtToken(String id, String username) {
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setHeaderParam("alg", "HS256")
@@ -31,7 +31,7 @@ public class JwtUtils {
                 .setIssuedAt(new Date()) // 签发时间
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
                 .claim("id", id)
-                .claim("nickname", nickname)
+                .claim("nickname", username)
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET)// 签名算法以及密匙
                 .compact();
     }

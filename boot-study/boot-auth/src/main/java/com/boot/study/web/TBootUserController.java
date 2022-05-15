@@ -1,7 +1,14 @@
 package com.boot.study.web;
 
 
+import com.boot.study.bean.Result;
+import com.boot.study.entity.TBootUser;
+import com.boot.study.service.LoginService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,9 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 胡山林
  * @since 2022-05-15
  */
+@Api(tags = "用户模块")
 @Slf4j
 @RestController
 @RequestMapping("/api/user")
 public class TBootUserController {
 
+    @Autowired
+    private LoginService loginService;
+
+    @ApiOperation("用户登录")
+    @RequestMapping("/login")
+    public Result login(@RequestBody TBootUser user) {
+        return loginService.login(user);
+    }
 }

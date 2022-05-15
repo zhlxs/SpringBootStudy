@@ -1,2 +1,7 @@
 *.iml
 */target/
+boot-study/boot-start/src/test
+*/test/
+src/test
+test
+/boot-start/src/test/
