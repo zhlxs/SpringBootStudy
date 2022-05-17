@@ -15,4 +15,10 @@ public interface LoginService {
      * @return
      */
     Result login(TBootUser user);
+
+    /**
+     * 退出登录
+     * @return
+     */
+    Result logout();
 }

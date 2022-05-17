@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -46,5 +47,14 @@ public class LoginServiceImpl implements LoginService {
         // 存入redis
         redisCache.setCacheObject(RedisCacheConstant.LOGIN_CACHE_PREFIX + id.toString(), principal);
         return Result.renderSuccess(map, "登录成功！");
+    }
+
+    @Override
+    public Result logout() {
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        LoginUser principal = (LoginUser) authentication.getPrincipal();
+        Long userId = principal.getUser().getId();
+        redisCache.deleteObject(RedisCacheConstant.LOGIN_CACHE_PREFIX + userId.toString());
+        return Result.renderSuccess("注销成功！");
     }
 }

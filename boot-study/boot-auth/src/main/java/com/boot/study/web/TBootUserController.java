@@ -34,4 +34,10 @@ public class TBootUserController {
     public Result login(@RequestBody TBootUser user) {
         return loginService.login(user);
     }
+
+    @ApiOperation("退出登录")
+    @RequestMapping("/logout")
+    public Result logout(){
+        return loginService.logout();
+    }
 }
