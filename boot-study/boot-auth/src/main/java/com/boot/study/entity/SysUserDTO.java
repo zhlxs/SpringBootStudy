@@ -25,7 +25,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @ApiModel(value = "SysUser对象", description = "系统用户信息表")
 @TableName("sys_user")
-public class SysUser implements Serializable {
+public class SysUserDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

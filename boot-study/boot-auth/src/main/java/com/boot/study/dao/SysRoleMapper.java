@@ -1,18 +1,18 @@
 package com.boot.study.dao;
 
+import com.boot.study.entity.SysRoleDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.boot.study.entity.SysUserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- * 用户信息表 Mapper 接口
+ * 系统角色表 Mapper 接口
  * </p>
  *
  * @author 胡山林
- * @since 2022-05-15
+ * @since 2022-05-17
  */
 @Mapper
-public interface SysUserMapper extends BaseMapper<SysUserDTO> {
+public interface SysRoleMapper extends BaseMapper<SysRoleDTO> {
 
 }

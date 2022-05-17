@@ -5,7 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.boot.study.bean.Result;
 import com.boot.study.constant.RedisCacheConstant;
 import com.boot.study.entity.LoginUser;
-import com.boot.study.entity.SysUser;
+import com.boot.study.entity.SysUserDTO;
 import com.boot.study.service.LoginService;
 import com.boot.study.util.JwtUtils;
 import com.boot.study.util.RedisCache;
@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
     private RedisCache redisCache;
 
     @Override
-    public Result login(SysUser user) {
+    public Result login(SysUserDTO user) {
         // 用户认证
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);// 帮助认证，调用userDetailsService中的方法去认证

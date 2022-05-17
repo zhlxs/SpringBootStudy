@@ -19,14 +19,14 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class LoginUser implements UserDetails {
 
-    private SysUser user;
+    private SysUserDTO user;
 
     private List<String> permissions;
 
     @JSONField(serialize = false)
     private List<SimpleGrantedAuthority> authorities;//不需要序列化到redis中
 
-    public LoginUser(SysUser user, List<String> permissions) {
+    public LoginUser(SysUserDTO user, List<String> permissions) {
         this.user = user;
         this.permissions = permissions;
     }

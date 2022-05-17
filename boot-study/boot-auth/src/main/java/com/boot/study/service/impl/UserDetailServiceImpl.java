@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.boot.study.dao.SysUserMapper;
 import com.boot.study.entity.LoginUser;
-import com.boot.study.entity.SysUser;
+import com.boot.study.entity.SysUserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,9 +26,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         // 查询用户信息
-        LambdaQueryWrapper<SysUser> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(SysUser::getUserName, userName);
-        SysUser user = userMapper.selectOne(wrapper);
+        LambdaQueryWrapper<SysUserDTO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SysUserDTO::getUserName, userName);
+        SysUserDTO user = userMapper.selectOne(wrapper);
         if (ObjectUtil.isEmpty(user)) {
             throw new RuntimeException("用户名或者密码错误！");
         }
