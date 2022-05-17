@@ -2,6 +2,7 @@ package com.boot.study.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.boot.study.dao.SysMenuMapper;
 import com.boot.study.dao.SysUserMapper;
 import com.boot.study.entity.LoginUser;
 import com.boot.study.entity.SysUserDTO;
@@ -12,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -22,6 +21,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
     private SysUserMapper userMapper;
+    @Autowired
+    private SysMenuMapper menuMapper;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -33,7 +34,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new RuntimeException("用户名或者密码错误！");
         }
         // 查询权限信息 todo
-        List<String> auths = new ArrayList<>(Arrays.asList("test", "admin"));
+//        List<String> auths = new ArrayList<>(Arrays.asList("test", "admin"));
+        List<String> auths = menuMapper.selectPermsByUserId(user.getId());
         // 把数据封装成userDetails返回
         return new LoginUser(user, auths);
     }

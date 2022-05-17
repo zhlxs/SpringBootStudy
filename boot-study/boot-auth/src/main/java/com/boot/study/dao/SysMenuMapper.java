@@ -3,6 +3,9 @@ package com.boot.study.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.boot.study.entity.SysMenuDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenuDTO> {
 
+    /**
+     * 查询用户权限集合
+     *
+     * @param userId
+     * @return
+     */
+    List<String> selectPermsByUserId(@Param("userId") Long userId);
 }

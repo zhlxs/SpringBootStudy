@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.boot.study.dao.SysMenuMapper">
 
+    <!--查询用户权限集合-->
+    <select id="selectPermsByUserId" resultType="java.lang.String">
+        SELECT DISTINCT sm.perms
+        FROM sys_user_role sur
+                 LEFT JOIN sys_role sr on sur.role_id = sr.id
+                 LEFT JOIN sys_role_menu srm ON srm.role_id = sur.role_id
+                 LEFT JOIN sys_menu sm ON sm.id = srm.menu_id
+        WHERE sur.user_id = #{userId}
+          AND sr.`status` = 0
+          AND sm.`status` = 0
+    </select>
 </mapper>
