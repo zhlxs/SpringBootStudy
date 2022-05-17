@@ -1,6 +1,6 @@
 package com.boot.study.service;
 
-import com.boot.study.entity.TBootUser;
+import com.boot.study.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author 胡山林
  * @since 2022-05-15
  */
-public interface TBootUserService extends IService<TBootUser> {
+public interface SysUserService extends IService<SysUser> {
 
 }

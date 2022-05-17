@@ -1,7 +1,7 @@
 package com.boot.study.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.boot.study.entity.TBootUser;
+import com.boot.study.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022-05-15
  */
 @Mapper
-public interface TBootUserMapper extends BaseMapper<TBootUser> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
 }

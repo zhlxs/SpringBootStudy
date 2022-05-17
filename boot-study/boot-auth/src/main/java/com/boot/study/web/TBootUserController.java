@@ -2,7 +2,7 @@ package com.boot.study.web;
 
 
 import com.boot.study.bean.Result;
-import com.boot.study.entity.TBootUser;
+import com.boot.study.entity.SysUser;
 import com.boot.study.service.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +31,7 @@ public class TBootUserController {
 
     @ApiOperation("用户登录")
     @RequestMapping("/login")
-    public Result login(@RequestBody TBootUser user) {
+    public Result login(@RequestBody SysUser user) {
         return loginService.login(user);
     }
 

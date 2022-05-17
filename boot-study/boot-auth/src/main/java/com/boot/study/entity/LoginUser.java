@@ -1,27 +1,48 @@
 package com.boot.study.entity;
 
-import lombok.AllArgsConstructor;
+import cn.hutool.core.collection.CollUtil;
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 登录用户信息
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class LoginUser implements UserDetails {
 
-    private TBootUser user;
+    private SysUser user;
+
+    private List<String> permissions;
+
+    @JSONField(serialize = false)
+    private List<SimpleGrantedAuthority> authorities;//不需要序列化到redis中
+
+    public LoginUser(SysUser user, List<String> permissions) {
+        this.user = user;
+        this.permissions = permissions;
+    }
 
     // 用户返回权限信息的
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+//        List<GrantedAuthority> list = new ArrayList<>();
+//        for (String permission : permissions) {
+//            SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission);
+//            list.add(grantedAuthority);
+//        }
+//        return list;
+        if (CollUtil.isNotEmpty(authorities)) return authorities;
+        authorities = permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return authorities;
     }
 
     @Override

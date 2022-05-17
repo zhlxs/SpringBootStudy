@@ -1,7 +1,7 @@
 package com.boot.study.service;
 
 import com.boot.study.bean.Result;
-import com.boot.study.entity.TBootUser;
+import com.boot.study.entity.SysUser;
 
 /**
  * 登录Service
@@ -14,7 +14,7 @@ public interface LoginService {
      * @param user
      * @return
      */
-    Result login(TBootUser user);
+    Result login(SysUser user);
 
     /**
      * 退出登录

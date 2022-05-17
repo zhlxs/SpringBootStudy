@@ -23,9 +23,9 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode
 @Accessors(chain = true)
-@ApiModel(value = "TBootUser对象", description = "用户信息表")
-@TableName("t_boot_user")
-public class TBootUser implements Serializable {
+@ApiModel(value = "SysUser对象", description = "系统用户信息表")
+@TableName("sys_user")
+public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
