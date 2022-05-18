@@ -62,5 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(accessDeniedHandler);
         // 允许跨域
         http.cors();
+
+        /**
+         * 注意：
+         * 认证成功的处理器，是结合formLogin登录方式使用的；
+         * JWT认证的流程不能用认证成功的处理器
+         */
     }
 }
