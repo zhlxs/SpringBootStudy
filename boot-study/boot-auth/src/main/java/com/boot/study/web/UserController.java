@@ -8,9 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -24,20 +22,20 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/user")
-public class TBootUserController {
+public class UserController {
 
     @Autowired
     private LoginService loginService;
 
     @ApiOperation("用户登录")
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public Result login(@RequestBody SysUserDTO user) {
         return loginService.login(user);
     }
 
     @ApiOperation("退出登录")
-    @RequestMapping("/logout")
-    public Result logout(){
+    @GetMapping("/logout")
+    public Result logout() {
         return loginService.logout();
     }
 }

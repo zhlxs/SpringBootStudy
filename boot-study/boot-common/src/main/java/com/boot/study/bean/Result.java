@@ -1,5 +1,7 @@
 package com.boot.study.bean;
 
+import com.boot.study.exception.BaseExceptionCode;
+
 /**
  * <响应实体>
  */
@@ -147,5 +149,20 @@ public class Result {
         result.setData(data);
         result.setMessage(msg);
         return result;
+    }
+
+    /**
+     * --------------------------------------------------------------------------------------
+     **/
+    public static Result result(String code, String message, Object data) {
+        return renderError(code, data, message);
+    }
+
+    public static Result fail(BaseExceptionCode exceptionCode) {
+        return validFail(exceptionCode);
+    }
+
+    private static Result validFail(BaseExceptionCode exceptionCode) {
+        return renderError(exceptionCode.getCode(), exceptionCode.getMsg() != null && !exceptionCode.getMsg().isEmpty() ? exceptionCode.getMsg() : "系统繁忙，请稍候再试");
     }
 }

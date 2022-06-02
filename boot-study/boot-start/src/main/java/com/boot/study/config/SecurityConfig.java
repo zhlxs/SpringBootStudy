@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)// 开启方法权限认证
+@EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -51,7 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)// 禁用session
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/login").anonymous()
+                // 认证和授权是两回事。 'permitAll’适用于授权。您仍然需要进行身份验证
+                .antMatchers("/api/user/login").permitAll()
                 .anyRequest().authenticated();
         // 添加过滤器
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -68,5 +72,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * 认证成功的处理器，是结合formLogin登录方式使用的；
          * JWT认证的流程不能用认证成功的处理器
          */
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        //对于在header里面增加token等类似情况，放行所有OPTIONS请求。
+        // web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+        web.ignoring()
+                .antMatchers("/api/user/login",
+                        "/logout",
+                        "/css/**",
+                        "/js/**",
+                        "/index.html",
+                        "favicon.ico",
+                        "/doc.html",
+                        "/webjars/**",
+                        "/swagger-resources/**",
+                        "/v2/api-docs/**"
+                );
     }
 }
