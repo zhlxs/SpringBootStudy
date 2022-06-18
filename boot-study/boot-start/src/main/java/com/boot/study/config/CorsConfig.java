@@ -1,5 +1,6 @@
 package com.boot.study.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Configuration
@@ -35,6 +37,7 @@ public class CorsConfig implements WebMvcConfigurer {
 
     /**
      * Long类型转字符串Json,避免精度丢失
+     *
      * @param converters
      */
     @Override
@@ -46,6 +49,12 @@ public class CorsConfig implements WebMvcConfigurer {
         simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
         objectMapper.registerModule(simpleModule);
         jackson2HttpMessageConverter.setObjectMapper(objectMapper);
+        // 时间格式化
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         converters.add(jackson2HttpMessageConverter);
+        /**
+         * 添加拦截器并继承 WebMvcConfigurationSupport 后会覆盖@EnableAutoConfiguration关于WebMvcAutoConfiguration的配置！从而导致所有的Date返回都变成时间戳。
+         */
     }
 }

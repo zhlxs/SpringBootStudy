@@ -50,10 +50,10 @@ public class RoleController {
 
     @ApiOperation("角色更新")
     @PostMapping("/update")
-    public void update(@Valid @RequestBody SysRoleUpdateVO roleUpdateVO) {
+    public Result update(@Valid @RequestBody SysRoleUpdateVO roleUpdateVO) {
         Result result = roleService.updateRole(roleUpdateVO);
         if (result.getSuccess()) {
-            return;
+            return result;
         }
         throw BizException.wrap(result.getCode(), result.getMessage());
     }

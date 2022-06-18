@@ -43,10 +43,10 @@ public class SysRoleDTO implements Serializable {
     private String roleKey;
 
     @ApiModelProperty(value = "角色状态（0正常，1停用）")
-    private int status;
+    private Integer status;
 
     @ApiModelProperty(value = "删除标识：0未删除，1已删除")
-    private int delFlag;
+    private Integer delFlag;
 
     @ApiModelProperty(value = "创建人")
     private Long creator;

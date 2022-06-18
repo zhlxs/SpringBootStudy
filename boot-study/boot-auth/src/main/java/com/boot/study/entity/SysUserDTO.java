@@ -1,8 +1,10 @@
 package com.boot.study.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -71,4 +73,8 @@ public class SysUserDTO implements Serializable {
 
     @ApiModelProperty(value = "删除标志：0未删除，1已删除")
     private Boolean delFlag;
+
+    @JsonIgnore
+    @TableField(exist = false)
+    private Boolean remember;
 }

@@ -66,7 +66,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleDTO> i
         }
         SysRoleDTO update = this.convertor.convertor(roleUpdateVO, SysRoleDTO.class);
         update.setUpdateTime(new Date());
-        roleMapper.updateById(update);
+        // roleMapper.updateById(update);
+        roleMapper.update(null, Wrappers.<SysRoleDTO>lambdaUpdate().set(SysRoleDTO::getRoleName,roleUpdateVO.getRoleName()).eq(SysRoleDTO::getId,roleUpdateVO.getId()));
         return Result.renderSuccess(SystemConstants.UPDATE_SUCCESS_MSG);
     }
 
