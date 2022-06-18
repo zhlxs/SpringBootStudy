@@ -2,6 +2,7 @@ package com.boot.study.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.boot.study.bean.*;
@@ -81,8 +82,19 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleDTO> i
                     .eq("role_name", newRole.getRoleName())
                     .eq("del_flag", SystemConstants.NO_DEL_FLAG_VALUE));
             if (roleDTO != null) {
-                if (roleDTO.getId() == null || (roleDTO.getId() != null && !newRole.getId().equals(roleDTO.getId()))) {
-                    return ExceptionCode.INVALID_DATA.build("角色名称 %s 已经被占用", newRole.getRoleName());
+                if (roleDTO.getId() == null || (roleDTO.getId() != null && !roleDTO.getId().equals(newRole.getId()))) {
+                    return ExceptionCode.INVALID_DATA.build("角色名称[%s]已经被占用", newRole.getRoleName());
+                }
+            }
+        }
+
+        if (StringUtils.isNotEmpty(newRole.getRoleKey())) {
+            SysRoleDTO roleDTO = roleMapper.selectOne(new QueryWrapper<SysRoleDTO>()
+                    .eq("role_key", newRole.getRoleKey())
+                    .eq("del_flag", SystemConstants.NO_DEL_FLAG_VALUE));
+            if (roleDTO != null) {
+                if (roleDTO.getId() == null || (roleDTO.getId() != null && !roleDTO.getId().equals(newRole.getId()))) {
+                    return ExceptionCode.INVALID_DATA.build("角色标识[%s]已经存在", newRole.getRoleKey());
                 }
             }
         }
@@ -96,6 +108,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleDTO> i
             return Result.fail(baseExceptionCode);
         }
         SysRoleDTO roleDTO = convertor.convertor(roleAddVO, SysRoleDTO.class);
+        roleDTO.setDelFlag(0);
+        roleDTO.setCreateTime(new Date());
         roleMapper.insert(roleDTO);
         return Result.renderSuccess(SystemConstants.ADD_SUCCESS_MSG);
     }
@@ -104,10 +118,11 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleDTO> i
     public Result delRole(Long id) {
         BizAssert.notNull(id);
         //逻辑删除
-        SysRoleDTO delRole = new SysRoleDTO();
-        delRole.setId(id);
-        delRole.setDelFlag(Boolean.TRUE);
-        roleMapper.updateById(delRole);
+        // delRole.setId(id);
+        // delRole.setDelFlag(1);
+        // updateById有更新策略的影响，不建议使用
+        // roleMapper.updateById(delRole);
+        roleMapper.update(null, Wrappers.<SysRoleDTO>lambdaUpdate().set(SysRoleDTO::getDelFlag,1).eq(SysRoleDTO::getId,id));
         return Result.renderSuccess(SystemConstants.DEL_FAIL_MSG);
     }
 }

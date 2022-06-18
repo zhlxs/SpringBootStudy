@@ -60,20 +60,20 @@ public class RoleController {
 
     @ApiOperation("角色新增")
     @PostMapping("/create")
-    public void create(@Valid @RequestBody SysRoleAddVO roleAddVO) {
+    public Result create(@Valid @RequestBody SysRoleAddVO roleAddVO) {
         Result result = roleService.addRole(roleAddVO);
         if (result.getSuccess()) {
-            return;
+            return result;
         }
         throw BizException.wrap(result.getCode(), result.getMessage());
     }
 
     @ApiOperation("角色删除")
-    @PostMapping("/delete")
-    public void delete(@RequestParam("id") Long id) {
+    @GetMapping("/delete")
+    public Result delete(@RequestParam("id") Long id) {
         Result result = roleService.delRole(id);
         if (result.getSuccess()) {
-            return;
+            return result;
         }
         throw BizException.wrap(result.getCode(), result.getMessage());
     }

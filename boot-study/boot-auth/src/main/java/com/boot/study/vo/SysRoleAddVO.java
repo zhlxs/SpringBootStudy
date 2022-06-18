@@ -18,6 +18,10 @@ import javax.validation.constraints.NotEmpty;
 public class SysRoleAddVO {
 
     @ApiModelProperty(value = "角色名称")
-    @NotEmpty(message = "角色名不能为空")
+    @NotEmpty(message = "角色名称不能为空")
     private String roleName;
+
+    @ApiModelProperty(value = "角色标识")
+    @NotEmpty(message = "角色标识不能为空")
+    private String roleKey;
 }

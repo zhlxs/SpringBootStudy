@@ -48,7 +48,7 @@ public abstract class DefaultGlobalExceptionHandler {
     public Result bizException(BizException ex, HttpServletRequest request, HttpServletResponse response) {
         log.warn("BizException:", ex);
         response.setStatus(ExceptionCode.OPERATION_EX.getStatus());
-        return Result.result(ex.getCode(), "", ex.getMessage());
+        return Result.result(ex.getCode(), ex.getMessage(), null);
     }
 
     @ExceptionHandler({HttpMessageNotReadableException.class})
