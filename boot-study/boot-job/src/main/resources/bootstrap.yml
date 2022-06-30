@@ -1,0 +1,16 @@
+spring:
+  application:
+    name:  boot-job
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.0.106:8848
+        namespace: 7eb5fa16-5f4a-4a7e-8fb1-5cc978c31fa4
+      config:
+        server-addr: 192.168.0.106:8848
+        namespace: 7eb5fa16-5f4a-4a7e-8fb1-5cc978c31fa4
+
+
+#xxl.job.accessToken: job-token-123456

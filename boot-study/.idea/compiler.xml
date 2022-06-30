@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="boot-auth" />
         <module name="boot-file" />
+        <module name="boot-job" />
         <module name="boot-start" />
         <module name="boot-code-generator" />
         <module name="boot-common" />
