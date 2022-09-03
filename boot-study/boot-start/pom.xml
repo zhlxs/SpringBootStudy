@@ -20,6 +20,11 @@
     <dependencies>
         <dependency>
             <groupId>com.boot.study</groupId>
+            <artifactId>boot-file</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.boot.study</groupId>
             <artifactId>boot-common</artifactId>
             <version>${project.version}</version>
         </dependency>
